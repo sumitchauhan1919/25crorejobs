@@ -67,25 +67,22 @@ function page(job) {
     `This is a learning/demo job record. Before applying, verify the employer, vacancy, salary, qualification, dates and application process from an official source. Role: ${job.role}.`;
 
   const schema = {
-    "@context": "https://schema.org",
-    "@type": "JobPosting",
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
 
-    // Use the actual job role in JobPosting.title.
-    // The longer marketing-style title remains the HTML <title>/<h1>.
-    "title": job.role,
+  "title": title,
 
-    "description": description,
+  "description": description,
 
-    "hiringOrganization": {
-      "@type": "Organization",
-      "name": job.company
-    },
+  "hiringOrganization": {
+    "@type": "Organization",
+    "name": job.company
+  },
 
-    "employmentType": "FULL_TIME",
-    "datePosted": "2026-09-11",
-
-    "validThrough": "2026-10-11T23:59:59Z"
-  };
+  "employmentType": "FULL_TIME",
+  "datePosted": "2026-09-11",
+  "validThrough": "2026-10-11T23:59:59Z"
+};
 
   if (job.remote) {
     schema.jobLocationType = "TELECOMMUTE";
