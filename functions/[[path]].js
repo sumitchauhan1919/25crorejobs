@@ -4,7 +4,7 @@
      /                          → next() (serves static index.html)
      /robots.txt                → robots
      /sitemap.xml               → sitemap index
-     /sitemap-<n>.xml           → 50,000-URL shard
+     /sitemap-<n>.xml           → 5000-URL shard
      /jobs/job-000000001        → dynamic job page (any of 250,000,000)
    ────────────────────────────────────────────────────────────────────────── */
 
