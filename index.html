@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HowTo Jobs – Remote Jobs, Government Jobs & Career Guides</title>
+<meta name="description" content="Browse searchable job guides with qualification, age requirements, documents, exams, selection process and application guidance.">
+<link rel="canonical" href="https://25corejobsposting.pages.dev/">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap nav"><a class="brand" href="/">HowTo Jobs</a><nav><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy-policy.html">Privacy</a><a href="/disclaimer.html">Disclaimer</a></nav></div></header>
+<main>
+<section class="hero"><div class="wrap">
+<span class="eyebrow">LEARNING-SCALE JOB DATABASE</span>
+<h1>Job Guides, Qualifications, Exams & How to Apply</h1>
+<p>This learning project demonstrates how a Cloudflare Pages site can serve a very large virtual job catalogue without storing hundreds of millions of individual HTML files.</p>
+<div class="search"><input id="search" type="search" placeholder="Search job title, company or keyword..." aria-label="Search jobs"><button id="searchBtn">Search</button></div>
+<div class="stats"><strong>250,000,000</strong><span>virtual demo job records</span></div>
+</div></section>
+<section class="wrap section">
+<div class="section-head"><div><h2>Job Posts</h2><p id="count">Loading…</p></div></div>
+<div id="job-grid" class="grid"></div>
+<div class="pager"><button id="prev">Previous</button><span id="pageLabel"></span><button id="next">Next</button></div>
+</section></main>
+<footer class="footer"><div class="wrap foot"><div>© 2026 HowTo Jobs</div><div><a href="/terms.html">Terms</a><a href="/editorial-policy.html">Editorial Policy</a></div></div></footer>
+<script src="/assets/config.js"></script><script>
+const grid=document.getElementById('job-grid'), count=document.getElementById('count'), pageLabel=document.getElementById('pageLabel');
+const prev=document.getElementById('prev'), next=document.getElementById('next'), search=document.getElementById('search'), searchBtn=document.getElementById('searchBtn');
+let page=1, q=''; const pageSize=20;
+async function load(){
+  const url='/api/jobs?page='+page+'&limit='+pageSize+(q?'&q='+encodeURIComponent(q):'');
+  const r=await fetch(url); const data=await r.json();
+  grid.innerHTML=data.items.map(j=>`<article class="card"><span class="tag">${j.type}</span><h3><a href="${j.url}">${escapeHtml(j.title)}</a></h3><p>${escapeHtml(j.company)} · ${escapeHtml(j.location)}</p><p>${escapeHtml(j.summary)}</p><a class="btn" href="${j.url}">View Job Guide</a></article>`).join('');
+  count.textContent=`Showing ${data.start.toLocaleString()}–${data.end.toLocaleString()} of ${data.total.toLocaleString()} virtual records`;
+  pageLabel.textContent=`Page ${data.page.toLocaleString()} of ${data.pages.toLocaleString()}`;
+  prev.disabled=data.page<=1; next.disabled=data.page>=data.pages;
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+prev.onclick=()=>{if(page>1){page--;load();}}; next.onclick=()=>{page++;load();};
+searchBtn.onclick=()=>{q=search.value.trim();page=1;load();}; search.addEventListener('keydown',e=>{if(e.key==='Enter'){q=search.value.trim();page=1;load();}});
+load();
+</script>
+</body></html>
