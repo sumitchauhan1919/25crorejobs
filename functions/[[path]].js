@@ -9,7 +9,7 @@
    ────────────────────────────────────────────────────────────────────────── */
 
 const TOTAL = 250_000_000;
-const BASE  = "https://25corejobsposting.pages.dev";
+const BASE  = "https://25crorejobs.pages.dev";
 const PER_SHARD = 5_000;
 
 const JOB_TYPES = [
